@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import './site-nav';
 
-@customElement(`site-header`)
+@customElement('site-header')
 export class SiteHeader extends LitElement {
   render() {
     return html`
