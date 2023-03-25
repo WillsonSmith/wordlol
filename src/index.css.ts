@@ -62,6 +62,16 @@ export const base = css`
     -webkit-text-size-adjust: 100%;
   }
 
+  html {
+    box-sizing: border-box;
+  }
+
+  html *,
+  html *::before,
+  html *::after {
+    box-sizing: inherit;
+  }
+
   body {
     margin: 0;
 
@@ -84,6 +94,10 @@ render(
   html`
     <style id="styles">
       ${base}
+      ${css`
+        .word-genius {
+          padding-inline: var(--spacing-sm);
+        }`}
     </style>
   `,
   document.head
