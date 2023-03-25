@@ -23,11 +23,11 @@ Install dependencies: npm install
 
 The word.lol web application has the following dependencies:
 
-[Lit](https://lit.dev): a lightweight web component library for building web applications
-[Vite](https://vitejs.dev): a fast build tool for modern web applications
-[Shoelace](https://shoelace.style): a promise-based HTTP client for making API calls
-[OpenAI](https://openai.com)'s ChatGPT API: an API that generates text based on the input prompt
-[Netlify](https://netlify.com): a cloud computing platform that provides serverless functions for web applications
+- [Lit](https://lit.dev): a lightweight web component library for building web applications
+- [Vite](https://vitejs.dev): a fast build tool for modern web applications
+- [Shoelace](https://shoelace.style): a promise-based HTTP client for making API calls
+- [OpenAI](https://openai.com)'s ChatGPT API: an API that generates text based on the input prompt
+- [Netlify](https://netlify.com): a cloud computing platform that provides serverless functions for web applications
 Credits
 
 The word.lol web application was built by Willson Smith and is licensed under the MIT License.
