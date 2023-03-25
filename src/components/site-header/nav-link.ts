@@ -7,6 +7,7 @@ export class NavLink extends LitElement {
   @property({ type: String }) href = '';
   @property({ type: Boolean }) active = false;
   @property({ type: Boolean }) primary = false;
+  @property({ type: Boolean }) external = false;
 
   render() {
     return html`
@@ -17,6 +18,7 @@ export class NavLink extends LitElement {
           'nav-link--active': this.active,
           'nav-link--primary': this.primary,
         })}
+        target=${this.external ? '_blank' : '_self'}
       >
         <slot name="icon"></slot>
         <slot></slot>
