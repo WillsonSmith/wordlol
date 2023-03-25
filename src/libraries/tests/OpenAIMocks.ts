@@ -13,8 +13,8 @@ export const JSON_OK_HEADERS = {
   },
 };
 
-import type { ChatCompletionArguments } from '../OpenAI';
-export const MOCK_CHAT_COMPLETE_OPTIONS: ChatCompletionArguments = {
+import type { ChatCompletionRequestBody } from '../OpenAI';
+export const MOCK_CHAT_COMPLETE_OPTIONS: ChatCompletionRequestBody = {
   messages: [
     {
       role: 'user',
