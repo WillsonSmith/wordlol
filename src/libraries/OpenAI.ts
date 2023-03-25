@@ -11,6 +11,11 @@ export type ChatCompletionArguments = {
   messages: OpenAIChatMessage[];
 };
 
+export type APIResponse = {
+  first: { content: string };
+  error?: { first: { content: string }; error: Error };
+};
+
 export class OpenAI {
   apiKey?: string;
   constructor(apiKey?: string) {

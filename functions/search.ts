@@ -1,9 +1,8 @@
 import { OpenAI } from '../src/libraries/OpenAI';
-
 import { Handler } from '@netlify/functions';
 export const handler: Handler = async (event, context) => {
   try {
-    const word = event.queryStringParameters?.search;
+    const word = event.queryStringParameters?.term;
     if (!word) {
       return {
         statusCode: 400,

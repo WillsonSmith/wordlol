@@ -4,11 +4,10 @@ import { when } from 'lit/directives/when.js';
 
 import '@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 
-import { OpenAI } from '../../libraries/OpenAI';
+import type { APIResponse } from '../../libraries/OpenAI.js';
 
 @customElement(`definition-route`)
 export class DefinitionRoute extends LitElement {
-  openAI: OpenAI = new OpenAI();
   @property({ type: String, attribute: 'word' }) _word = '';
   @property({ type: String }) definition = '';
   @property({ type: Boolean }) loading = true;
@@ -41,17 +40,14 @@ export class DefinitionRoute extends LitElement {
 
   private async fetchDefinition() {
     this.loading = true;
-    const response = await this.openAI.chatCompletion({
-      messages: [
-        {
-          role: 'user',
-          content: `Invent a new definition for "${this.word}" in the style of Urban Dictionary.`,
-        },
-      ],
-    });
+    try {
+      const response = await fetch(`/api/search?term=${this.word}`);
+      const data: APIResponse = await response.json();
+      this.definition = data.first.content;
+    } catch (error) {
+      this.definition = 'Error';
+    }
     this.loading = false;
-
-    this.definition = response?.first.content;
   }
 
   static styles = [
