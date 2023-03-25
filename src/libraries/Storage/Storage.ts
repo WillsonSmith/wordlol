@@ -9,19 +9,20 @@ type StorageOptions = {
 
 export class Storage {
   private _strategy: StorageOptions['strategy'];
-  private _storage: { [key: string]: any };
+  private _storage: Map<string, string>;
   constructor(options: StorageOptions) {
-    this._storage = {};
+    this._storage = new Map();
     this._strategy = options.strategy;
   }
   get(key: string) {
-    return this._storage[key];
+    return this._storage.get(key);
   }
-  set(key: string, value: any) {
-    this._storage[key] = value;
+  set(key: string, value: any, save?: boolean) {
+    this._storage.set(key, value);
+    if (save) this.save();
   }
 
-  save() {
-    console.log(`Saving to ${this._strategy}...`);
+  async save() {
+    console.log(`Not Implemented: Saving to ${this._strategy}...`);
   }
 }
