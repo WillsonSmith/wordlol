@@ -12,11 +12,11 @@ export default defineConfig({
     },
     rollupOptions: {
       plugins: [
-        terser({
-          ecma: 2020,
-          module: true,
-          warnings: true,
-        }),
+        // terser({
+        //   ecma: 2020,
+        //   module: true,
+        //   warnings: true,
+        // }),
         minifyHTML,
       ],
       // external: /^lit/,
