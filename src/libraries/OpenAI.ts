@@ -66,10 +66,7 @@ export class OpenAI {
   ): Promise<ChatCompletionResponse> {
     const response = await fetch(`${OPENAI_API}/chat/completions`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiKey}`,
-      },
+      headers: this.headers,
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
         messages: messages,
@@ -86,8 +83,11 @@ export class OpenAI {
     }));
   }
 
-  updateKey(key: string) {
-    this.apiKey = key;
+  private get headers() {
+    return {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.apiKey}`,
+    };
   }
 }
 
