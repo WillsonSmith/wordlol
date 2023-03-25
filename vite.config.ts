@@ -10,17 +10,8 @@ export default defineConfig({
       entry: 'index.html',
       formats: ['es'],
     },
-    minify: 'terser',
     rollupOptions: {
-      plugins: [
-        // terser({
-        //   ecma: 2020,
-        //   module: true,
-        //   warnings: true,
-        // }),
-        minifyHTML,
-      ],
-      // external: /^lit/,
+      plugins: [],
     },
   },
 });
