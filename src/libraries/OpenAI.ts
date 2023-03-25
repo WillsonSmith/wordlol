@@ -2,30 +2,30 @@ const ORIGIN = 'https://api.openai.com';
 const API_VERSION = 'v1';
 const OPENAI_API = `${ORIGIN}/${API_VERSION}`;
 
-type OpenAIChatCompleteResponse = {
-  choices: OpenAIChatMessage[];
-  error?: OpenAIError;
+type ChatCompletionResponse = {
+  choices: ChatMessage[];
+  error?: ChatCompletionError;
 };
 
-type OpenAIError = {
+type ChatCompletionError = {
   message: string;
   type?: string;
   param?: string | null;
   code?: string | null;
 };
 
-export type OpenAIChatMessage = {
+export type ChatMessage = {
   role: 'user' | 'assistant' | 'system';
   content: string;
 };
 
-export type ChatCompletionArguments = {
-  messages: OpenAIChatMessage[];
+export type ChatCompletionRequestBody = {
+  messages: ChatMessage[];
 };
 
-export type APIResponse = {
-  results: { message: OpenAIChatMessage }[];
-  error?: OpenAIError;
+export type ChatCompletionApiResponse = {
+  results: { message: ChatMessage }[];
+  error?: ChatCompletionError;
 };
 
 export class OpenAI {
@@ -36,31 +36,22 @@ export class OpenAI {
 
   async completeChat({
     messages,
-  }: ChatCompletionArguments): Promise<APIResponse> {
-    let response;
+  }: ChatCompletionRequestBody): Promise<ChatCompletionApiResponse> {
     try {
-      response = await fetch(`${OPENAI_API}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: messages,
-        }),
-      });
+      const chatCompletionResponse = await this._requestChatCompletion(
+        messages
+      );
 
-      const data: OpenAIChatCompleteResponse = await response.json();
+      if (chatCompletionResponse.error) {
+        return handleErrrorResponse(chatCompletionResponse.error);
+      }
 
-      if (data?.error) return handleErrrorResponse(data.error);
       return {
-        results: data?.choices.map((choice: any) => ({
-          message: choice.message,
-        })),
+        results: this._mapChatCompletionChoicesToResults(
+          chatCompletionResponse.choices
+        ),
       };
     } catch (error: any) {
-      console.error(error);
       return {
         results: [],
         error: {
@@ -70,12 +61,37 @@ export class OpenAI {
     }
   }
 
+  private async _requestChatCompletion(
+    messages: ChatMessage[]
+  ): Promise<ChatCompletionResponse> {
+    const response = await fetch(`${OPENAI_API}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: messages,
+      }),
+    });
+
+    return response.json();
+  }
+  private _mapChatCompletionChoicesToResults(
+    choices: ChatMessage[]
+  ): { message: ChatMessage }[] {
+    return choices.map((choice: any) => ({
+      message: choice.message,
+    }));
+  }
+
   updateKey(key: string) {
     this.apiKey = key;
   }
 }
 
-function handleErrrorResponse(error: OpenAIError) {
+function handleErrrorResponse(error: ChatCompletionError) {
   return {
     results: [],
     error,
