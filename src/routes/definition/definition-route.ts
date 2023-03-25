@@ -41,11 +41,9 @@ export class DefinitionRoute extends LitElement {
     this.loading = true;
     try {
       const response = await fetch(`/api/search?term=${this.word}`);
-      console.log(response);
       const data: ServerlessAPIResponse = await response.json();
       this.definition = data.results[0].content;
     } catch (error) {
-      console.log(error);
       this.definition = 'There was an error generating the definition.';
     }
     this.loading = false;

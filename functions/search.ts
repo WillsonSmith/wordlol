@@ -34,7 +34,6 @@ export const handler: Handler = async (event) => {
       body: JSON.stringify(transformResponse(response)),
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify(error),
