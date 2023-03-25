@@ -18,17 +18,19 @@ export class DefinitionRoute extends LitElement {
 
   render() {
     return html`
-      <nav class="navigation">
-        <a href="/">Word Genius</a>
-      </nav>
       <div class="definition-page">
-        <h1>${this.word}</h1>
-        <div class="definition">
-          ${when(
-            this.loading,
-            () => html`<sl-spinner></sl-spinner>`,
-            () => html` <p>${this.definition}</p> `
-          )}
+        <nav class="navigation">
+          <a href="/">Word Genius</a>
+        </nav>
+        <div class="definition-page__content">
+          <h1 class="definition-page__word">${this.word}</h1>
+          <div class="definition-page__definition">
+            ${when(
+              this.loading,
+              () => html`<sl-spinner></sl-spinner>`,
+              () => html` <p>${this.definition}</p> `
+            )}
+          </div>
         </div>
       </div>
     `;
@@ -62,18 +64,25 @@ export class DefinitionRoute extends LitElement {
         text-underline-offset: var(--spacing-xs);
         padding: var(--spacing-sm);
       }
+
       .definition-page {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+      }
+      .definition-page__content {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
       }
-      .definition {
-        max-width: 60ch;
-      }
 
-      h1,
-      p {
+      .definition-page__word {
+        line-height: var(--line-height-sm);
+        margin: 0;
+      }
+      .definition-page__definition {
+        max-width: var(--size-text-block);
         margin: 0;
       }
     `,

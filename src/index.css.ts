@@ -55,6 +55,8 @@ export const base = css`
     color: var(--color-text-body);
     background-color: var(--color-background);
 
+    --size-text-block: 60ch;
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
