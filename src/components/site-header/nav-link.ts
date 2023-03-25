@@ -35,6 +35,7 @@ export class NavLink extends LitElement {
         color: var(--color-body-text);
         text-decoration: none;
         text-underline-offset: var(--spacing-xs);
+        line-height: var(--line-height);
       }
 
       .nav-link:focus {

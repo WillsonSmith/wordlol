@@ -11,20 +11,12 @@ if (!globalThis.URLPattern) {
   await import('urlpattern-polyfill');
 }
 
-import { route, RouteContext, router, RouterContext } from './context/router';
+import { router, RouterContext } from './context/router';
 
 import '../components/site-header/site-header';
 
 @customElement(`app-router`)
 export class AppRouter extends LitElement {
-  @provide({ context: route })
-  @property({ type: Object })
-  route: RouteContext = {
-    name: '',
-    path: '',
-    query: new URLSearchParams(),
-  };
-
   @provide({ context: router })
   @property({ type: Object })
   router: RouterContext = {

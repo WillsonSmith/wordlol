@@ -1,5 +1,4 @@
-import terser from '@rollup/plugin-terser';
-import minifyHTML from 'rollup-plugin-minify-html-literals';
+import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
@@ -10,8 +9,28 @@ export default defineConfig({
       entry: 'index.html',
       formats: ['es'],
     },
-    rollupOptions: {
-      plugins: [],
-    },
   },
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.includes('/api/search'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'api-search-cache',
+              expiration: {
+                maxEntries: 15,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
+              },
+            },
+          },
+        ],
+      },
+    }),
+  ],
 });

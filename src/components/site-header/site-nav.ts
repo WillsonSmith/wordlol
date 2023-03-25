@@ -63,6 +63,7 @@ export class SiteNav extends LitElement {
         display: flex;
         gap: var(--spacing-xs);
         align-items: center;
+        min-height: 45px;
       }
 
       .site-nav__social {

@@ -4,7 +4,10 @@ global.fetch = fetch;
 
 export type ServerlessAPIResponse = { results: { content: string }[] };
 
-import { ChatCompletionApiResponse, OpenAI } from '../src/libraries/OpenAI';
+import {
+  ChatCompletionApiResponse,
+  OpenAI,
+} from '../src/libraries/OpenAI/OpenAI';
 import { Handler } from '@netlify/functions';
 export const handler: Handler = async (event) => {
   try {
@@ -31,7 +34,6 @@ export const handler: Handler = async (event) => {
       body: JSON.stringify(transformResponse(response)),
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify(error),
