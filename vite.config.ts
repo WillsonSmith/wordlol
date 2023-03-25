@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     lib: {
-      entry: 'src/main.ts',
+      entry: 'index.html',
       formats: ['es'],
     },
     rollupOptions: {
