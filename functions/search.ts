@@ -1,3 +1,6 @@
+import fetch from 'node-fetch';
+global.fetch = fetch;
+
 import { OpenAI } from '../src/libraries/OpenAI';
 import { Handler } from '@netlify/functions';
 export const handler: Handler = async (event, context) => {
