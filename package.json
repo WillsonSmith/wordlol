@@ -1,0 +1,31 @@
+{
+  "name": "word-genius",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/my-element.es.js",
+  "exports": {
+    ".": "./dist/my-element.es.js"
+  },
+  "types": "types/my-element.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@lit-labs/context": "^0.3.0",
+    "@lit-labs/router": "^0.1.1",
+    "@lit-labs/task": "^2.1.0",
+    "@shoelace-style/shoelace": "^2.3.0",
+    "lit": "^2.6.1",
+    "urlpattern-polyfill": "^6.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  }
+}
