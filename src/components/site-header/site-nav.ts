@@ -32,7 +32,7 @@ export class SiteNav extends LitElement {
     return [
       {
         href: '/',
-        label: 'Word Genius',
+        label: 'word.lol',
         primary: true,
       },
     ].filter((link) => link.href !== window.location.pathname);

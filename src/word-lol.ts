@@ -3,7 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import './router/app-router';
 
-@customElement('word-genius')
+@customElement('word-lol')
 export class WordGenius extends LitElement {
   render() {
     return html`
@@ -22,6 +22,6 @@ export class WordGenius extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'word-genius': WordGenius;
+    'word-lol': WordGenius;
   }
 }

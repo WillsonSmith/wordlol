@@ -11,18 +11,18 @@ export class IndexRoute extends LitElement {
     return html`
       <div>
         <header class="header">
-          <h1>Word Genius</h1>
+          <h1>word.lol</h1>
         </header>
         <div class="search-form">
           <form @submit=${this._search}>
             <sl-input
               class="search-input"
               name="search"
-              placeholder="Search"
+              placeholder="Invent a word"
               type="text"
               maxlength="50"
               required
-              aria-label="Search"
+              aria-label="Invent a word (search)"
             >
             </sl-input>
             <sl-button type="submit">Search</sl-button>
@@ -46,6 +46,7 @@ export class IndexRoute extends LitElement {
         align-items: center;
         justify-content: center;
       }
+
       .search-form {
         display: flex;
         flex-direction: column;
