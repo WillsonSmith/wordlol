@@ -96,7 +96,7 @@ render(
     <style id="styles">
       ${base}
       ${css`
-        .word-genius {
+        .word-lol {
           padding-inline: var(--spacing-sm);
         }`}
     </style>

@@ -1,1 +1,1 @@
-import './word-genius';
+import './word-lol';

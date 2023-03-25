@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/visually-hidden/visually-hidden.js';
 export declare class IndexRoute extends LitElement {
     render(): import("lit-html").TemplateResult<1>;
     private _search;
