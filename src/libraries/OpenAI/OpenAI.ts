@@ -3,7 +3,7 @@ const API_VERSION = 'v1';
 const OPENAI_API = `${ORIGIN}/${API_VERSION}`;
 
 type ChatCompletionResponse = {
-  choices: ChatMessage[];
+  choices: { message: ChatMessage }[];
   error?: ChatCompletionError;
 };
 
@@ -34,24 +34,18 @@ export class OpenAI {
     this.apiKey = apiKey;
   }
 
-  async completeChat({
-    messages,
-  }: ChatCompletionRequestBody): Promise<ChatCompletionApiResponse> {
+  async completeChat({ messages }: ChatCompletionRequestBody): Promise<ChatCompletionApiResponse> {
     try {
-      const chatCompletionResponse = await this._requestChatCompletion(
-        messages
-      );
+      const chatCompletionResponse = await this._requestChatCompletion(messages);
 
       if (chatCompletionResponse.error) {
         return handleErrrorResponse(chatCompletionResponse.error);
       }
 
       return {
-        results: this._mapChatCompletionChoicesToResults(
-          chatCompletionResponse.choices
-        ),
+        results: this._mapChatCompletionChoicesToResults(chatCompletionResponse.choices),
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         results: [],
         error: {
@@ -61,9 +55,7 @@ export class OpenAI {
     }
   }
 
-  private async _requestChatCompletion(
-    messages: ChatMessage[]
-  ): Promise<ChatCompletionResponse> {
+  private async _requestChatCompletion(messages: ChatMessage[]): Promise<ChatCompletionResponse> {
     const response = await fetch(`${OPENAI_API}/chat/completions`, {
       method: 'POST',
       headers: this.headers,
@@ -76,9 +68,9 @@ export class OpenAI {
     return response.json();
   }
   private _mapChatCompletionChoicesToResults(
-    choices: ChatMessage[]
+    choices: ChatCompletionResponse['choices'],
   ): { message: ChatMessage }[] {
-    return choices.map((choice: any) => ({
+    return choices.map((choice) => ({
       message: choice.message,
     }));
   }

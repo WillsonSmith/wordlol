@@ -4,7 +4,7 @@ import { provide } from '@lit-labs/context';
 import { storage } from '../context/storageContext';
 import { Storage } from '../Storage';
 
-@customElement(`storage-provider`)
+@customElement('storage-provider')
 export class StorageProvider extends LitElement {
   @provide({ context: storage })
   @property({ type: Object })

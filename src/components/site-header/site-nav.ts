@@ -3,29 +3,25 @@ import { customElement } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import './nav-link';
 
-@customElement(`site-nav`)
+@customElement('site-nav')
 export class SiteNav extends LitElement {
   render() {
     return html`
     ${map(
       this.siteLinks,
       (link) => html`
-        <nav-link ?primary=${link.primary} href=${link.href}>
-          ${link.label}
-        </nav-link>
-      `
+        <nav-link ?primary=${link.primary} href=${link.href}> ${link.label} </nav-link>
+      `,
     )}
         <div class="site-nav__social">
           ${map(
             this.socialLinks,
             (link) => html`
               <nav-link href=${link.href} external>
-                ${link.icon
-                  ? html`<sl-icon slot="icon" name=${link.icon}></sl-icon>`
-                  : nothing}
+                ${link.icon ? html`<sl-icon slot="icon" name=${link.icon}></sl-icon>` : nothing}
                 ${link.label}
               </nav-link>
-            `
+            `,
           )}
         </div>
       </nav>
