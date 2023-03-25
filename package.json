@@ -13,10 +13,25 @@
     "types"
   ],
   "scripts": {
+    "start": "wireit",
     "dev": "vite",
-    "netlify": "netlify dev",
-    "build": "tsc && vite build",
+    "build": "wireit",
+    "copy-assets": "cp -aR node_modules/@shoelace-style/shoelace/dist/assets/ ./public/assets",
     "test": "wtr --node-resolve"
+  },
+  "wireit": {
+    "start": {
+      "command": "netlify dev",
+      "dependencies": [
+        "copy-assets"
+      ]
+    },
+    "build": {
+      "command": "tsc && vite build",
+      "dependencies": [
+        "copy-assets"
+      ]
+    }
   },
   "dependencies": {
     "@lit-labs/context": "^0.3.0",
@@ -40,6 +55,7 @@
     "rollup-plugin-minify-html-literals": "^1.2.6",
     "sinon": "^15.0.2",
     "typescript": "^4.9.3",
-    "vite": "^4.2.0"
+    "vite": "^4.2.0",
+    "wireit": "^0.9.5"
   }
 }

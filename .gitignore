@@ -24,6 +24,9 @@ dist-ssr
 *.sw?
 
 .env
+.wireit
 
 # Local Netlify folder
 .netlify
+
+public/assets

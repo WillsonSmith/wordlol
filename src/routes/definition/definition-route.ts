@@ -19,9 +19,6 @@ export class DefinitionRoute extends LitElement {
   render() {
     return html`
       <div class="definition-page">
-        <nav class="navigation">
-          <a href="/">Word Genius</a>
-        </nav>
         <div class="definition-page__content">
           <h1 class="definition-page__word">${this.word}</h1>
           <div class="definition-page__definition">
@@ -54,17 +51,6 @@ export class DefinitionRoute extends LitElement {
 
   static styles = [
     css`
-      .navigation a {
-        display: block;
-        color: var(--color-body-text);
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-bold);
-
-        text-decoration: underline;
-        text-underline-offset: var(--spacing-xs);
-        padding: var(--spacing-sm);
-      }
-
       .definition-page {
         display: flex;
         flex-direction: column;
