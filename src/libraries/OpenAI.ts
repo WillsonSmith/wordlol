@@ -45,6 +45,7 @@ export class OpenAI {
         first: data?.choices[0].message,
       };
     } catch (error: any) {
+      console.error(error);
       return {
         first: { content: 'Error' },
         error,
