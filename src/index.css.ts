@@ -15,8 +15,7 @@ export const base = css`
 
     --font-system-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
     --font-system-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
-    --font-system-monospace: Menlo, Monaco, Consolas, 'Liberation Mono',
-      'Courier New', monospace;
+    --font-system-monospace: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     --font-system: var(--font-system-sans);
 
     --font-size-xs: var(--sl-font-size-x-small);
@@ -102,5 +101,5 @@ render(
         }`}
     </style>
   `,
-  document.head
+  document.head,
 );
