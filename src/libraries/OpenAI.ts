@@ -2,6 +2,18 @@ const ORIGIN = 'https://api.openai.com';
 const API_VERSION = 'v1';
 const OPENAI_API = `${ORIGIN}/${API_VERSION}`;
 
+type OpenAIChatCompleteResponse = {
+  choices: OpenAIChatMessage[];
+  error?: OpenAIError;
+};
+
+type OpenAIError = {
+  message: string;
+  type?: string;
+  param?: string | null;
+  code?: string | null;
+};
+
 export type OpenAIChatMessage = {
   role: 'user' | 'assistant' | 'system';
   content: string;
@@ -12,8 +24,8 @@ export type ChatCompletionArguments = {
 };
 
 export type APIResponse = {
-  first: { content: string };
-  error?: { first: { content: string }; error: Error };
+  results: { message: OpenAIChatMessage }[];
+  error?: OpenAIError;
 };
 
 export class OpenAI {
@@ -22,10 +34,9 @@ export class OpenAI {
     this.apiKey = apiKey;
   }
 
-  async chatCompletion({ messages }: ChatCompletionArguments): Promise<{
-    first: { content: string };
-    error?: { first: { content: string }; error: Error };
-  }> {
+  async completeChat({
+    messages,
+  }: ChatCompletionArguments): Promise<APIResponse> {
     let response;
     try {
       response = await fetch(`${OPENAI_API}/chat/completions`, {
@@ -40,15 +51,21 @@ export class OpenAI {
         }),
       });
 
-      const data = await response.json();
+      const data: OpenAIChatCompleteResponse = await response.json();
+
+      if (data?.error) return handleErrrorResponse(data.error);
       return {
-        first: data?.choices[0].message,
+        results: data?.choices.map((choice: any) => ({
+          message: choice.message,
+        })),
       };
     } catch (error: any) {
       console.error(error);
       return {
-        first: { content: 'Error' },
-        error,
+        results: [],
+        error: {
+          message: 'There was an error fetching the response.',
+        },
       };
     }
   }
@@ -56,4 +73,11 @@ export class OpenAI {
   updateKey(key: string) {
     this.apiKey = key;
   }
+}
+
+function handleErrrorResponse(error: OpenAIError) {
+  return {
+    results: [],
+    error,
+  };
 }

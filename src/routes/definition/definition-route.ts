@@ -4,7 +4,7 @@ import { when } from 'lit/directives/when.js';
 
 import '@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 
-import type { APIResponse } from '../../libraries/OpenAI.js';
+import type { ServerlessAPIResponse } from '../../../functions/search.js';
 
 @customElement(`definition-route`)
 export class DefinitionRoute extends LitElement {
@@ -42,10 +42,10 @@ export class DefinitionRoute extends LitElement {
     this.loading = true;
     try {
       const response = await fetch(`/api/search?term=${this.word}`);
-      const data: APIResponse = await response.json();
-      this.definition = data.first.content;
+      const data: ServerlessAPIResponse = await response.json();
+      this.definition = data.results[0].content;
     } catch (error) {
-      this.definition = 'Error';
+      this.definition = 'There was an error generating the definition.';
     }
     this.loading = false;
   }
