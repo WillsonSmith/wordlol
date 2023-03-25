@@ -1,3 +1,5 @@
+import terser from '@rollup/plugin-terser';
+import minifyHTML from 'rollup-plugin-minify-html-literals';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
@@ -9,6 +11,14 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
+      plugins: [
+        terser({
+          ecma: 2020,
+          module: true,
+          warnings: true,
+        }),
+        minifyHTML,
+      ],
       // external: /^lit/,
     },
   },
