@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/visually-hidden/visually-hidden.js';
 
 @customElement('index-route')
 export class IndexRoute extends LitElement {
@@ -17,10 +18,13 @@ export class IndexRoute extends LitElement {
             <sl-input
               class="search-input"
               name="search"
-              placeholder="Search for a word"
+              placeholder="Search"
               type="text"
+              maxlength="50"
               required
-            ></sl-input>
+              aria-label="Search"
+            >
+            </sl-input>
             <sl-button type="submit">Search</sl-button>
           </form>
         </div>

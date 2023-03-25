@@ -59,12 +59,13 @@ export class SiteNav extends LitElement {
         display: flex;
         gap: var(--spacing-xs);
         align-items: center;
-        min-height: 45px;
+        padding-block: var(--spacing-xs);
       }
 
       .site-nav__social {
         flex: 1;
         display: flex;
+        flex-wrap: wrap;
         gap: var(--spacing-sm);
         justify-content: flex-end;
       }
