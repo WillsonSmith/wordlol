@@ -1,1 +1,0 @@
-import './word-lol';
