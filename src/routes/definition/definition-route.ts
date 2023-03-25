@@ -4,6 +4,8 @@ import { when } from 'lit/directives/when.js';
 
 import '@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 
+import '../../components/definition-block/definition-block';
+
 import type { ServerlessAPIResponse } from '../../../functions/search.js';
 
 @customElement('definition-route')
@@ -19,16 +21,13 @@ export class DefinitionRoute extends LitElement {
   render() {
     return html`
       <div class="definition-page">
-        <div class="definition-page__content">
-          <h1 class="definition-page__word">${this.word}</h1>
-          <div class="definition-page__definition">
-            ${when(
-              this.loading,
-              () => html`<sl-spinner></sl-spinner>`,
-              () => html` <p>${this.definition}</p> `,
-            )}
-          </div>
-        </div>
+        <definition-block word=${this.word}>
+          ${when(
+            this.loading,
+            () => html`<sl-spinner></sl-spinner>`,
+            () => html` <p>${this.definition}</p> `,
+          )}
+        </definition-block>
       </div>
     `;
   }
@@ -56,23 +55,6 @@ export class DefinitionRoute extends LitElement {
         flex-direction: column;
         align-items: center;
         gap: var(--spacing-xs);
-      }
-      .definition-page__content {
-        display: flex;
-        flex-direction: column;
-        width: clamp(20ch, 100%, 60ch);
-        max-width: var(--size-text-block);
-      }
-
-      .definition-page__word {
-        font-size: var(--font-size-xxl);
-        font-weight: var(--font-weight-bold);
-        line-height: var(--line-height-sm);
-        margin: 0;
-      }
-
-      .definition-page__definition p {
-        margin-block: var(--spacing-xxs);
       }
     `,
   ];
