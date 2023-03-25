@@ -44,7 +44,6 @@ export class DefinitionRoute extends LitElement {
       const data: ServerlessAPIResponse = await response.json();
       this.definition = data.results[0].content;
     } catch (error) {
-      console.log(error);
       this.definition = 'There was an error generating the definition.';
     }
     this.loading = false;
@@ -65,12 +64,17 @@ export class DefinitionRoute extends LitElement {
       }
 
       .definition-page__word {
+        font-size: var(--font-size-xxl);
+        font-weight: var(--font-weight-bold);
         line-height: var(--line-height-sm);
         margin: 0;
       }
       .definition-page__definition {
         max-width: var(--size-text-block);
-        margin: 0;
+      }
+
+      .definition-page__definition p {
+        margin-block: var(--spacing-xxs);
       }
     `,
   ];

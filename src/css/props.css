@@ -18,14 +18,16 @@
   --font-system-monospace: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   --font-system: var(--font-system-sans);
 
+  --font-size-xxs: var(--sl-font-size-2x-small);
   --font-size-xs: var(--sl-font-size-x-small);
   --font-size-sm: var(--sl-font-size-small);
   --font-size: var(--sl-font-size-medium);
   --font-size-lg: var(--sl-font-size-large);
   --font-size-xl: var(--sl-font-size-x-large);
+  --font-size-xxl: var(--sl-font-size-2x-large);
 
   --font-weight-light: var(--sl-font-weight-light);
-  --font-weight-normal: var(--sl-font-weight-normal);
+  --font-weight: var(--sl-font-weight-normal);
   --font-weight-medium: var(--sl-font-weight-medium);
   --font-weight-semibold: var(--sl-font-weight-semibold);
   --font-weight-bold: var(--sl-font-weight-bold);
@@ -41,6 +43,7 @@
   --border-radius: var(--sl-border-radius-medium);
   --border-radius-lg: var(--sl-border-radius-large);
 
+  --spacing-xxs: var(--sl-spacing-2x-small);
   --spacing-xs: var(--sl-spacing-x-small);
   --spacing-sm: var(--sl-spacing-small);
   --spacing-base: var(--sl-spacing-medium);
