@@ -82,7 +82,7 @@ export class DefinitionRoute extends LitElement {
         margin: 0;
       }
       .definition-page__definition {
-        max-width: 60ch;
+        max-width: var(--size-text-block);
         margin: 0;
       }
     `,
