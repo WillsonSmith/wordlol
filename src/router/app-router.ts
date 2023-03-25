@@ -13,6 +13,8 @@ if (!globalThis.URLPattern) {
 
 import { route, RouteContext, router, RouterContext } from './context/router';
 
+import '../components/site-header/site-header';
+
 @customElement(`app-router`)
 export class AppRouter extends LitElement {
   @provide({ context: route })
@@ -31,7 +33,10 @@ export class AppRouter extends LitElement {
 
   render() {
     const { routes } = this.router;
-    return html`${routes.outlet()}`;
+    return html`
+      <site-header></site-header>
+      <main>${routes.outlet()}</main>
+    `;
   }
 }
 
