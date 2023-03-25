@@ -54,13 +54,14 @@ export class DefinitionRoute extends LitElement {
       .definition-page {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: var(--spacing-xs);
       }
       .definition-page__content {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        width: clamp(20ch, 100%, 60ch);
+        max-width: var(--size-text-block);
       }
 
       .definition-page__word {
@@ -68,9 +69,6 @@ export class DefinitionRoute extends LitElement {
         font-weight: var(--font-weight-bold);
         line-height: var(--line-height-sm);
         margin: 0;
-      }
-      .definition-page__definition {
-        max-width: var(--size-text-block);
       }
 
       .definition-page__definition p {
