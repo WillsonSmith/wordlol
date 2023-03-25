@@ -1,9 +1,12 @@
 import fetch from 'node-fetch';
+// @ts-ignore
 global.fetch = fetch;
 
-import { OpenAI } from '../src/libraries/OpenAI';
+export type ServerlessAPIResponse = { results: { content: string }[] };
+
+import { APIResponse, OpenAI } from '../src/libraries/OpenAI';
 import { Handler } from '@netlify/functions';
-export const handler: Handler = async (event, context) => {
+export const handler: Handler = async (event) => {
   try {
     const word = event.queryStringParameters?.term;
     if (!word) {
@@ -14,7 +17,7 @@ export const handler: Handler = async (event, context) => {
     }
 
     const openAI = new OpenAI(process.env.OPENAI_API_KEY);
-    const response = await openAI.chatCompletion({
+    const response = await openAI.completeChat({
       messages: [
         {
           role: 'user',
@@ -25,7 +28,7 @@ export const handler: Handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
+      body: JSON.stringify(transformResponse(response)),
     };
   } catch (error) {
     console.log(error);
@@ -35,3 +38,11 @@ export const handler: Handler = async (event, context) => {
     };
   }
 };
+
+function transformResponse(response: APIResponse) {
+  return {
+    results: response.results.map((result) => ({
+      content: result.message.content,
+    })),
+  };
+}
