@@ -25,7 +25,7 @@ export class IndexRoute extends LitElement {
               aria-label="Invent a word (search)"
             >
             </sl-input>
-            <sl-button type="submit">Search</sl-button>
+            <sl-button type="submit">Generate</sl-button>
           </form>
         </div>
       </div>
