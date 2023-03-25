@@ -6,7 +6,7 @@ import '@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 
 import type { ServerlessAPIResponse } from '../../../functions/search.js';
 
-@customElement(`definition-route`)
+@customElement('definition-route')
 export class DefinitionRoute extends LitElement {
   @property({ type: String, attribute: 'word' }) _word = '';
   @property({ type: String }) definition = '';
@@ -25,7 +25,7 @@ export class DefinitionRoute extends LitElement {
             ${when(
               this.loading,
               () => html`<sl-spinner></sl-spinner>`,
-              () => html` <p>${this.definition}</p> `
+              () => html` <p>${this.definition}</p> `,
             )}
           </div>
         </div>
@@ -44,6 +44,7 @@ export class DefinitionRoute extends LitElement {
       const data: ServerlessAPIResponse = await response.json();
       this.definition = data.results[0].content;
     } catch (error) {
+      console.log(error);
       this.definition = 'There was an error generating the definition.';
     }
     this.loading = false;

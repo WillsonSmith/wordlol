@@ -15,7 +15,7 @@ import { router, RouterContext } from './context/router';
 
 import '../components/site-header/site-header';
 
-@customElement(`app-router`)
+@customElement('app-router')
 export class AppRouter extends LitElement {
   @provide({ context: router })
   @property({ type: Object })
@@ -52,9 +52,7 @@ const routes = [
     name: 'definition',
     path: '/definition/:word',
     render: (params: { [key: string]: string | undefined }) =>
-      html`<definition-route
-        word=${ifDefined(params.word)}
-      ></definition-route>`,
+      html`<definition-route word=${ifDefined(params.word)}></definition-route>`,
     enter: async () => {
       await import('../routes/definition/definition-route');
       return true;

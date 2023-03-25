@@ -1,13 +1,12 @@
 import fetch from 'node-fetch';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 global.fetch = fetch;
 
 export type ServerlessAPIResponse = { results: { content: string }[] };
 
-import {
-  ChatCompletionApiResponse,
-  OpenAI,
-} from '../src/libraries/OpenAI/OpenAI';
+import { ChatCompletionApiResponse, OpenAI } from '../src/libraries/OpenAI/OpenAI';
 import { Handler } from '@netlify/functions';
 export const handler: Handler = async (event) => {
   try {
