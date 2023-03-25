@@ -1,19 +1,60 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
-
+import { map } from 'lit/directives/map.js';
 import './nav-link';
 
 @customElement(`site-nav`)
 export class SiteNav extends LitElement {
   render() {
     return html`
-        <nav-link primary href="/">Word Genius</nav-link>
+    ${map(
+      this.siteLinks,
+      (link) => html`
+        <nav-link ?primary=${link.primary} href=${link.href}>
+          ${link.label}
+        </nav-link>
+      `
+    )}
         <div class="site-nav__social">
-          <nav-link href="http://github.com/willsonsmith" target="_blank"><sl-icon slot="icon" name="github"></sl-icon>GitHub</nav-link>
-          <nav-link href="http://willsonsmith.com" target="_blank" ><sl-icon name="globe"></sl-icon>willsonsmith.com</nav-link>
+          ${map(
+            this.socialLinks,
+            (link) => html`
+              <nav-link href=${link.href} external>
+                ${link.icon
+                  ? html`<sl-icon slot="icon" name=${link.icon}></sl-icon>`
+                  : nothing}
+                ${link.label}
+              </nav-link>
+            `
+          )}
         </div>
       </nav>
     `;
+  }
+
+  private get siteLinks() {
+    return [
+      {
+        href: '/',
+        label: 'Word Genius',
+        primary: true,
+      },
+    ].filter((link) => link.href !== window.location.pathname);
+  }
+
+  private get socialLinks() {
+    return [
+      {
+        href: 'https://github.com/willsonsmith',
+        label: 'GitHub',
+        icon: 'github',
+      },
+      {
+        href: 'https://willsonsmith.com',
+        label: 'willsonsmith.com',
+        icon: 'globe',
+      },
+    ];
   }
 
   static styles = [
