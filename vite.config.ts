@@ -10,6 +10,7 @@ export default defineConfig({
       entry: 'index.html',
       formats: ['es'],
     },
+    minify: 'terser',
     rollupOptions: {
       plugins: [
         // terser({
