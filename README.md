@@ -1,6 +1,8 @@
 # word.lol
 [word.lol](https://word.lol)
 
+<img width="855" alt="Screenshot 2023-03-25 at 19 10 47" src="https://user-images.githubusercontent.com/1087756/227746887-1e89d121-d124-4d02-89e0-cc044611aa07.png">
+
 word.lol is a web application built with the [Lit](http://lit.dev) web framework that allows users to search for a word or a phrase and generate a definition similar to Urban Dictionary. The application uses OpenAI's ChatGPT API to randomly generate definitions. It is built on top of [Vite](https://vitejs.dev), a fast build tool for modern web applications, and has a dependency on Netlify for functions.
 
 ## Usage
@@ -11,8 +13,9 @@ Clone the repository: git clone https://github.com/your-username/wordgenius.git
 Install dependencies: npm install
 
 - Add an `OPENAI_API_KEY` environment variable to your `.env` file. You can get an API key by signing up for an OpenAI account at https://openai.com/.
-- Start the development server: npm start
-- Open your web browser and navigate to http://localhost:8888
+- Install dependencies `npm i`
+- Start the development server: `npm start`
+- Open your web browser and navigate to `http://localhost:8888`
 - Enter a word or a phrase in the search bar and click the "Search" button
 - The application will generate a definition similar to Urban Dictionary for the word or phrase you searched for.
 
