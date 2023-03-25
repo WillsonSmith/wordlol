@@ -10,5 +10,27 @@ export default defineConfig({
       formats: ['es'],
     },
   },
-  plugins: [VitePWA({ registerType: 'autoUpdate' })],
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.includes('/api/search'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'api-search-cache',
+              expiration: {
+                maxEntries: 15,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
+              },
+            },
+          },
+        ],
+      },
+    }),
+  ],
 });
