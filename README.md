@@ -7,9 +7,9 @@ word.lol is a web application built with the [Lit](http://lit.dev) web framework
 
 ## Usage
 
-To use the word.lol web application, follow these steps:
+To get started with word.lol follow these steps:
 
-Clone the repository: git clone https://github.com/your-username/wordgenius.git
+Clone the repository: git clone https://github.com/WillsonSmith/word.lol.git
 Install dependencies: npm install
 
 - Add an `OPENAI_API_KEY` environment variable to your `.env` file. You can get an API key by signing up for an OpenAI account at https://openai.com/.
