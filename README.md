@@ -4,6 +4,8 @@
 ### Invent words with wordlol
 Open the page, invent a word, and get a definition.
 
+![wordlol](https://user-images.githubusercontent.com/1087756/227804681-03d2b05c-a4b7-4686-ad5b-78220d171315.gif)
+
 ### About
 wordlol is built on the [Lit](http://lit.dev) Web Component library, it randomly generates definitions by calling the [OpenAI](https://platform.openai.com/docs/guides/chat) Chat completion API, and it is bundled with [Vite](https://vitejs.dev). API calls are made with [Netlify](https://netlify.com) functions and can be substituted for any serverless function provider.
 
