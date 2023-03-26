@@ -26,7 +26,7 @@ export class DefinitionBlock extends LitElement {
         flex-direction: column;
         width: var(--size-text-block-clamp);
         max-width: var(--size-text-block);
-        font-family: var(--font-system-serif);
+        font-family: var(--font-system);
       }
 
       .definition-block__header {

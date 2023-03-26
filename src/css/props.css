@@ -26,11 +26,11 @@
   --font-size-xl: var(--sl-font-size-x-large);
   --font-size-xxl: var(--sl-font-size-2x-large);
 
-  --font-weight-light: var(--sl-font-weight-light);
   --font-weight: var(--sl-font-weight-normal);
+  --font-weight-bold: var(--sl-font-weight-bold);
+  --font-weight-light: var(--sl-font-weight-light);
   --font-weight-medium: var(--sl-font-weight-medium);
   --font-weight-semibold: var(--sl-font-weight-semibold);
-  --font-weight-bold: var(--sl-font-weight-bold);
 
   --line-height-xs: var(--sl-line-height-denser);
   --line-height-sm: var(--sl-line-height-dense);
