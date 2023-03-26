@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import type { Definition } from './definitions';
+import { when } from 'lit/directives/when.js';
 import '../../../../components/definition-block/definition-block';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
@@ -8,19 +9,16 @@ import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 
 import '@shoelace-style/shoelace/dist/components/animation/animation.js';
 import SlAnimation from '@shoelace-style/shoelace/dist/components/animation/animation.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 @customElement('definition-cycler')
 export class DefinitionCycler extends LitElement {
-  @property({ type: String }) direction: 'in' | 'out' = 'in';
-  @property({ type: Boolean }) playing = true;
+  @property({ type: Boolean }) transitioning = false;
   @property({ type: Boolean }) paused = false;
+  @property({ type: Boolean }) out = false;
+  @property({ type: Boolean }) in = true;
 
   @property({ type: Object })
-  definition: Definition = {
-    word: '',
-    definition: '',
-  };
+  definition: Definition = { word: '', definition: '' };
 
   @property({ type: Array })
   definitions: Definition[] = [];
@@ -34,54 +32,74 @@ export class DefinitionCycler extends LitElement {
       this.cycleDefinition();
     });
 
-    // get prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
-      this.playing = false;
+      this.paused = true;
     }
   }
 
   updated(changed: Map<string, string>) {
-    if (changed.has('playing')) {
-      this.animation.play = this.playing;
+    if (changed.has('paused')) {
+      if (this.paused) {
+        if (!this.transitioning) {
+          this.animation.play = false;
+        }
+      }
+      if (!this.paused) {
+        if (!this.transitioning) {
+          this.animation.play = true;
+        }
+      }
+    }
+
+    if (changed.has('transitioning')) {
+      if (!this.transitioning) {
+        if (this.paused) {
+          this.animation.play = false;
+        }
+      }
     }
   }
 
   render() {
-    let animationName;
-    if (this.direction === 'in') animationName = 'fadeInLeft';
-    if (this.direction === 'out') animationName = 'fadeOutRight';
-
-    let animationEasing;
-    if (this.direction === 'in') animationEasing = 'easeOutQuad';
-    if (this.direction === 'out') animationEasing = 'easeInQuad';
-
-    let iconName;
-    if (this.paused) iconName = 'play-circle';
-    if (!this.paused) iconName = 'pause-circle';
-
-    let controlText;
-    if (this.paused) controlText = 'Play';
-    if (!this.paused) controlText = 'Pause';
-
     const definition = this.definition;
     return html`
       <div class="definition-cycler">
         <sl-button
           class="definition-cycler__controls"
           variant="text"
-          @click=${this._handlePlayPause}
+          @click=${this._handleControlClick}
         >
-          <sl-icon slot="suffix" name=${ifDefined(iconName)}></sl-icon>
-          ${controlText}
+          <sl-icon
+            slot="suffix"
+            name=${when(
+              this.paused,
+              () => 'play-circle',
+              () => 'pause-circle',
+            )}
+          ></sl-icon>
+          ${when(
+            this.paused,
+            () => 'Resume',
+            () => 'Pause',
+          )}
         </sl-button>
         <sl-animation
           iterations="1"
           duration="1000"
           fill="forwards"
           play
-          name=${ifDefined(animationName)}
-          easing=${ifDefined(animationEasing)}
+          name=${when(
+            this.in,
+            () => 'fadeInLeft',
+            () => 'fadeOutRight',
+          )}
+          easing=${when(
+            this.in,
+            () => 'easeOutQuad',
+            () => 'easeInQuad',
+          )}
+          @sl-start=${this._animationStart}
           @sl-finish=${this._animationEnd}
         >
           <definition-block word=${definition.word}>
@@ -92,40 +110,41 @@ export class DefinitionCycler extends LitElement {
     `;
   }
 
-  private _handlePlayPause() {
+  private _handleControlClick() {
     this.paused = !this.paused;
-    if (!this.paused) this.animation.play = true;
+  }
+
+  private _animationStart() {
+    this.transitioning = true;
   }
 
   private _animationEnd() {
-    this.playing = false;
-    let delay = 10000;
-    if (this.direction === 'out') delay = 150;
-    setTimeout(this._animationTimeout, delay);
+    this.animation.play = false;
+
+    setTimeout(
+      () => {
+        this._registerNextCycle();
+      },
+      this.in ? 10000 : 150,
+    );
   }
 
-  private _animationTimeout = () => {
-    this.playing = false;
-    if (this.direction === 'in') {
-      this.direction = 'out';
-      this.animation.name = 'fadeOutRight';
-      this.animation.easing = 'easeInQuad';
-      this.playing = true;
-      return;
-    }
-
-    if (this.direction === 'out') {
+  private _registerNextCycle() {
+    if (this.out) {
       this.cycleDefinition();
-      this.direction = 'in';
-      this.animation.name = 'fadeInLeft';
-      this.animation.easing = 'easeOutQuad';
-      if (this.paused) {
-        this.playing = false;
-        return;
+      this.in = true;
+      this.out = false;
+      this.animation.play = true;
+    } else {
+      if (this.in) {
+        this.out = true;
+        this.in = false;
       }
-      this.playing = true;
     }
-  };
+    if (!this.paused) {
+      this.animation.play = true;
+    }
+  }
 
   cycleDefinition() {
     const next = this.definitions.at(Math.floor(Math.random() * this.definitions.length));
