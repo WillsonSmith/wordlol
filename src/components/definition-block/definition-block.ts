@@ -5,11 +5,18 @@ export class DefinitionBlock extends LitElement {
   @property({ type: String }) word = '';
   render() {
     return html`
-      <h1 class="definition-block__word">${this.word}</h1>
+      <div class="definition-block__header">
+        <h1 class="definition-block__word">${this._capitalize(this.word)}</h1>
+        <slot name="suffix"></slot>
+      </div>
       <div class="definition-block__definition">
         <slot></slot>
       </div>
     `;
+  }
+
+  private _capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   static styles = [
@@ -19,16 +26,24 @@ export class DefinitionBlock extends LitElement {
         flex-direction: column;
         width: var(--size-text-block-clamp);
         max-width: var(--size-text-block);
+        font-family: var(--font-system-serif);
+      }
+
+      .definition-block__header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
       }
 
       .definition-block__word {
-        font-size: var(--font-size-xxl);
-        font-weight: var(--font-weight-bold);
+        flex: 1;
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
         line-height: var(--line-height-sm);
         margin: 0;
       }
 
-      .definition-block__definition p {
+      .definition-block__definition::slotted(p) {
         margin-block: var(--spacing-xs);
       }
     `,

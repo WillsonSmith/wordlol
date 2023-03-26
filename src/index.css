@@ -2,5 +2,6 @@
 @import url('./css/reset.css');
 
 .word-lol {
+  font-family: var(--font-system-serif);
   padding-inline: var(--spacing-sm);
 }

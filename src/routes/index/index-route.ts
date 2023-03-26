@@ -10,10 +10,8 @@ import './components/definition-cycler/definition-cycler';
 export class IndexRoute extends LitElement {
   render() {
     return html`
-      <div>
-        <header class="header">
-          <h1>word.lol</h1>
-        </header>
+      <section>
+        <header><h1 class="header">word.lol</h1></header>
         <div class="search-form">
           <form @submit=${this._search}>
             <sl-input
@@ -30,7 +28,7 @@ export class IndexRoute extends LitElement {
           </form>
           <definition-cycler></definition-cycler>
         </div>
-      </div>
+      </section>
     `;
   }
 
@@ -48,6 +46,8 @@ export class IndexRoute extends LitElement {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: var(--font-size-xxl);
+        font-weight: var(--font-weight-medium);
       }
 
       .search-form {
