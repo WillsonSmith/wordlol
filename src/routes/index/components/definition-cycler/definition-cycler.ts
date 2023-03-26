@@ -2,6 +2,8 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
+import type { Definition } from './definitions';
+
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 
@@ -9,13 +11,15 @@ import '../../../../components/skeleton-text-block/skeleton-text-block';
 import '../../../../components/definition-block/definition-block';
 @customElement('definition-cycler')
 export class DefinitionCycler extends LitElement {
-  private _definitionCache: Map<string, Promise<string>> = new Map();
-  private _definitionBlock?: HTMLElement;
   private _animation?: Animation;
+  private _definitionCache: Map<string, Promise<string>> = new Map();
   @property({ type: Boolean, attribute: false }) playing = true;
   @property({ type: String, attribute: false }) word = 'Dorsolio';
   @property() content: Promise<string> = this._defineWord(this.word);
+
   @query('definition-block')
+  private _definitionBlock?: HTMLElement;
+
   async firstUpdated() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
