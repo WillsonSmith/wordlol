@@ -32,7 +32,7 @@ export class SiteNav extends LitElement {
     return [
       {
         href: '/',
-        label: 'word.lol',
+        label: siteName,
         primary: true,
       },
     ].filter((link) => link.href !== window.location.pathname);
@@ -80,3 +80,4 @@ declare global {
 }
 
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
+import { siteName } from '../../config/site-name';

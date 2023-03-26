@@ -1,6 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { siteName } from '../../config/site-name';
+
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 
@@ -11,7 +13,7 @@ export class IndexRoute extends LitElement {
   render() {
     return html`
       <section>
-        <header><h1 class="header">word.lol</h1></header>
+        <header><h1 class="header">${siteName}</h1></header>
         <div class="search-form">
           <form @submit=${this._search}>
             <sl-input
