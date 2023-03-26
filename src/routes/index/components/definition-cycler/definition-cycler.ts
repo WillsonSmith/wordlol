@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import type { Definition } from './definitions';
-import { when } from 'lit/directives/when.js';
+
 import '../../../../components/definition-block/definition-block';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
@@ -70,35 +70,15 @@ export class DefinitionCycler extends LitElement {
           variant="text"
           @click=${this._handleControlClick}
         >
-          <sl-icon
-            slot="suffix"
-            name=${when(
-              this.paused,
-              () => 'play-circle',
-              () => 'pause-circle',
-            )}
-          ></sl-icon>
-          ${when(
-            this.paused,
-            () => 'Resume',
-            () => 'Pause',
-          )}
+          <sl-icon slot="suffix" name=${this.paused ? 'play-circle' : 'pause-circle'}></sl-icon>
+          ${this.paused ? 'Resume' : 'Pause'}
         </sl-button>
         <sl-animation
+          play
           iterations="1"
           duration="1000"
           fill="forwards"
-          play
-          name=${when(
-            this.in,
-            () => 'fadeInLeft',
-            () => 'fadeOutRight',
-          )}
-          easing=${when(
-            this.in,
-            () => 'easeOutQuad',
-            () => 'easeInQuad',
-          )}
+          name=${this.in ? 'fadeInLeft' : 'fadeOutRight'}
           @sl-start=${this._animationStart}
           @sl-finish=${this._animationEnd}
         >
