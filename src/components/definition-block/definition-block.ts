@@ -29,7 +29,7 @@ export class DefinitionBlock extends LitElement {
       }
 
       .definition-block__definition p {
-        margin-block: var(--spacing-xxs);
+        margin-block: var(--spacing-xs);
       }
     `,
   ];
