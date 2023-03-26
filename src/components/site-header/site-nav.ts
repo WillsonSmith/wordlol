@@ -31,9 +31,9 @@ export class SiteNav extends LitElement {
   private get siteLinks() {
     return [
       {
-        href: '/',
-        label: siteName,
         primary: true,
+        label: siteName,
+        href: '/',
       },
     ].filter((link) => link.href !== window.location.pathname);
   }

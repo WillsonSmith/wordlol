@@ -1,1 +1,1 @@
-export const siteName = 'Word';
+export const siteName = 'wordlol';
