@@ -11,10 +11,10 @@ import '../../../../components/definition-block/definition-block';
 export class DefinitionCycler extends LitElement {
   private _animation?: Animation;
   private _definitionCache: Map<string, Promise<string>> = new Map();
+
   @property({ type: Boolean, attribute: false }) playing = true;
   @property({ type: String, attribute: false }) word = 'Dorsolio';
   @property() content: Promise<string> = this._defineWord(this.word);
-
   @query('definition-block')
   private _definitionBlock?: HTMLElement;
 

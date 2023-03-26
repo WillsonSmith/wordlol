@@ -1,29 +1,28 @@
 ## wordlol
 [https://word.lol](https://word.lol)
 
-Invent words in an instant with wordlol
-wordlol generates
+### Invent words with wordlol
+Open the page, invent a word, and get a definition.
 
-wordlol is a web application built with the [Lit](http://lit.dev) web framework that allows users to search for a word or a phrase and generate a definition similar to Urban Dictionary. The application uses OpenAI's ChatGPT API to randomly generate definitions. It is built on top of [Vite](https://vitejs.dev), a fast build tool for modern web applications, and has a dependency on Netlify for functions.
+![wordlol](https://user-images.githubusercontent.com/1087756/227804681-03d2b05c-a4b7-4686-ad5b-78220d171315.gif)
 
-
-<img width="1624" alt="Screenshot 2023-03-25 at 23 51 30" src="https://user-images.githubusercontent.com/1087756/227755141-18ae4648-5713-4bc3-bedc-360afcd5dc92.png">
-<img width="1624" alt="Screenshot 2023-03-25 at 23 51 26" src="https://user-images.githubusercontent.com/1087756/227755147-b505d5f8-6009-45a0-8b60-e57e67a010f2.png">
+### About
+wordlol is built on the [Lit](http://lit.dev) Web Component library, it randomly generates definitions by calling the [OpenAI](https://platform.openai.com/docs/guides/chat) Chat completion API, and it is bundled with [Vite](https://vitejs.dev). API calls are made with [Netlify](https://netlify.com) functions and can be substituted for any serverless function provider.
 
 
 ### Usage
 
 To get started with wordlol follow these steps:
 
-Clone the repository: git clone https://github.com/WillsonSmith/word.git
-Install dependencies: npm install
-
-- Add an `OPENAI_API_KEY` environment variable to your `.env` file. You can get an API key by signing up for an OpenAI account at https://openai.com/.
-- Install dependencies `npm i`
-- Start the development server: `npm start`
-- Open your web browser and navigate to `http://localhost:8888`
-- Enter a word or a phrase in the search bar and click the "Search" button
-- The application will generate a definition similar to Urban Dictionary for the word or phrase you searched for.
+- `git clone https://github.com/WillsonSmith/wordlol.git`
+- Add an `OPENAI_API_KEY` to your Environment variables (`.env` file).
+  - Get an API key by signing up for an OpenAI account at https://openai.com/.
+- `npm install`
+- `npm start`
+  - This requires Netlify for functions. You can replace the API or run `npm run dev` to run the application without functions.
+- If you use Netlify the browser should automatically open, if not, follow the link in your terminal.
+- Enter a word or a phrase in the search bar and click the "Search" button.
+- The application will generate a definition for the word or phrase you entered.
 
 ### Special thainks:
 
@@ -32,5 +31,3 @@ Install dependencies: npm install
 - [Shoelace](https://shoelace.style): A forward-thinking library of web components
 - [OpenAI](https://platform.openai.com/docs/guides/chat) Chat completion API
 - [Netlify](https://netlify.com): The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and apps for the web.
-
-The word web application was built by Willson Smith and is licensed under the MIT License.
