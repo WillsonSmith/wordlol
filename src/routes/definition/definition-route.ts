@@ -1,4 +1,4 @@
-import { LitElement, html, css, TemplateResult } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 
@@ -37,15 +37,6 @@ export class DefinitionRoute extends LitElement {
       </div>
     `;
   };
-
-  private _renderSkeletons() {
-    const skeletons: TemplateResult[] = [];
-    const numSkeletons = Math.floor(Math.random() * 4) + 5;
-    for (let i = 0; i < numSkeletons; i++) {
-      skeletons.push(html`<sl-skeleton effect="pulse"></sl-skeleton>`);
-    }
-    return skeletons;
-  }
 
   private _renderDefinition = () => {
     return html`<p>${this.definition}</p>`;
