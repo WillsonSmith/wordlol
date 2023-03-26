@@ -66,9 +66,6 @@ export class DefinitionRoute extends LitElement {
 
   static styles = [
     css`
-      p {
-        margin-block: var(--spacing-xxs);
-      }
       .definition-page {
         display: flex;
         flex-direction: column;

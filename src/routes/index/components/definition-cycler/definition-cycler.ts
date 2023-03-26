@@ -47,25 +47,29 @@ export class DefinitionCycler extends LitElement {
     const animationName = this.direction === 'in' ? 'fadeInLeft' : 'fadeOutRight';
     const animationEasing = this.direction === 'in' ? 'easeOutQuad' : 'easeInQuad';
     return html`
-      <div class="pause-controls">
-        <sl-button variant="text" @click=${() => (this.pause = !this.pause)}>
+      <div class="definition-cycler">
+        <sl-button
+          class="definition-cycler__controls"
+          variant="text"
+          @click=${() => (this.pause = !this.pause)}
+        >
           <sl-icon slot="suffix" name=${this.pause ? 'play-circle' : 'pause-circle'}></sl-icon>
           ${this.pause ? 'Play' : 'Pause'}
         </sl-button>
+        <sl-animation
+          iterations="1"
+          duration="1000"
+          fill="forwards"
+          play
+          name=${animationName}
+          easing=${animationEasing}
+          @sl-finish=${this._animationEnd}
+        >
+          <definition-block word=${this.definition.word}>
+            <p>${this.definition.definition}</p>
+          </definition-block>
+        </sl-animation>
       </div>
-      <sl-animation
-        iterations="1"
-        duration="1000"
-        fill="forwards"
-        play
-        name=${animationName}
-        easing=${animationEasing}
-        @sl-finish=${this._animationEnd}
-      >
-        <definition-block style="display: block" word=${this.definition.word}>
-          <p>${this.definition.definition}</p>
-        </definition-block>
-      </sl-animation>
     `;
   }
 
@@ -100,9 +104,15 @@ export class DefinitionCycler extends LitElement {
         overflow-x: hidden;
       }
 
-      .pause-controls {
-        display: flex;
-        justify-content: flex-end;
+      .definition-cycler {
+        position: relative;
+      }
+
+      .definition-cycler__controls {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
       }
     `,
   ];
