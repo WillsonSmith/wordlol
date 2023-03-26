@@ -17,7 +17,7 @@ export class DefinitionBlock extends LitElement {
       :host {
         display: flex;
         flex-direction: column;
-        width: clamp(20ch, 100%, 60ch);
+        width: var(--size-text-block-clamp);
         max-width: var(--size-text-block);
       }
 

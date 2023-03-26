@@ -58,6 +58,7 @@
   background-color: var(--color-background);
 
   --size-text-block: 60ch;
+  --size-text-block-clamp: clamp(20ch, 100%, 60ch);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
