@@ -3,7 +3,8 @@ import { customElement } from 'lit/decorators.js';
 
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
-import '@shoelace-style/shoelace/dist/components/visually-hidden/visually-hidden.js';
+
+import './components/definition-cycler/definition-cycler';
 
 @customElement('index-route')
 export class IndexRoute extends LitElement {
@@ -25,8 +26,9 @@ export class IndexRoute extends LitElement {
               aria-label="Invent a word (search)"
             >
             </sl-input>
-            <sl-button type="submit">Search</sl-button>
+            <sl-button type="submit">Generate</sl-button>
           </form>
+          <definition-cycler></definition-cycler>
         </div>
       </div>
     `;
@@ -52,6 +54,12 @@ export class IndexRoute extends LitElement {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        gap: var(--spacing);
+      }
+
+      definition-cycler {
+        width: var(--size-text-block-clamp);
       }
 
       .search-form form {
