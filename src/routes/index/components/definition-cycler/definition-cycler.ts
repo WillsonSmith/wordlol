@@ -69,7 +69,7 @@ export class DefinitionCycler extends LitElement {
     `;
   }
 
-  private _animationEnd(event) {
+  private _animationEnd() {
     if (this.pause) {
       this.animation.play = false;
       return;
