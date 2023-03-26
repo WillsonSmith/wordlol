@@ -8,11 +8,13 @@ import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 
 import '@shoelace-style/shoelace/dist/components/animation/animation.js';
 import SlAnimation from '@shoelace-style/shoelace/dist/components/animation/animation.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 @customElement('definition-cycler')
 export class DefinitionCycler extends LitElement {
   @property({ type: String }) direction: 'in' | 'out' = 'in';
-  @property({ type: Boolean }) pause = false;
+  @property({ type: Boolean }) playing = true;
+  @property({ type: Boolean }) paused = false;
 
   @property({ type: Object })
   definition: Definition = {
@@ -35,61 +37,94 @@ export class DefinitionCycler extends LitElement {
     // get prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
-      this.pause = true;
+      this.playing = false;
     }
   }
 
-  updated() {
-    if (!this.pause) this.animation.play = true;
+  updated(changed: Map<string, string>) {
+    if (changed.has('playing')) {
+      this.animation.play = this.playing;
+    }
   }
 
   render() {
-    const animationName = this.direction === 'in' ? 'fadeInLeft' : 'fadeOutRight';
-    const animationEasing = this.direction === 'in' ? 'easeOutQuad' : 'easeInQuad';
+    let animationName;
+    if (this.direction === 'in') animationName = 'fadeInLeft';
+    if (this.direction === 'out') animationName = 'fadeOutRight';
+
+    let animationEasing;
+    if (this.direction === 'in') animationEasing = 'easeOutQuad';
+    if (this.direction === 'out') animationEasing = 'easeInQuad';
+
+    let iconName;
+    if (this.paused) iconName = 'play-circle';
+    if (!this.paused) iconName = 'pause-circle';
+
+    let controlText;
+    if (this.paused) controlText = 'Play';
+    if (!this.paused) controlText = 'Pause';
+
+    const definition = this.definition;
     return html`
       <div class="definition-cycler">
         <sl-button
           class="definition-cycler__controls"
           variant="text"
-          @click=${() => (this.pause = !this.pause)}
+          @click=${this._handlePlayPause}
         >
-          <sl-icon slot="suffix" name=${this.pause ? 'play-circle' : 'pause-circle'}></sl-icon>
-          ${this.pause ? 'Play' : 'Pause'}
+          <sl-icon slot="suffix" name=${ifDefined(iconName)}></sl-icon>
+          ${controlText}
         </sl-button>
         <sl-animation
           iterations="1"
           duration="1000"
           fill="forwards"
           play
-          name=${animationName}
-          easing=${animationEasing}
+          name=${ifDefined(animationName)}
+          easing=${ifDefined(animationEasing)}
           @sl-finish=${this._animationEnd}
         >
-          <definition-block word=${this.definition.word}>
-            <p>${this.definition.definition}</p>
+          <definition-block word=${definition.word}>
+            <p>${definition.definition}</p>
           </definition-block>
         </sl-animation>
       </div>
     `;
   }
 
+  private _handlePlayPause() {
+    this.paused = !this.paused;
+    if (!this.paused) this.animation.play = true;
+  }
+
   private _animationEnd() {
-    if (this.pause) {
-      this.animation.play = false;
-      return;
-    }
-    this.animation.play = false;
-    const timeoutDelay = this.direction === 'in' ? 10000 : 150;
-    setTimeout(this._animationTimeout, timeoutDelay);
+    this.playing = false;
+    let delay = 10000;
+    if (this.direction === 'out') delay = 150;
+    setTimeout(this._animationTimeout, delay);
   }
 
   private _animationTimeout = () => {
+    this.playing = false;
+    if (this.direction === 'in') {
+      this.direction = 'out';
+      this.animation.name = 'fadeOutRight';
+      this.animation.easing = 'easeInQuad';
+      this.playing = true;
+      return;
+    }
+
     if (this.direction === 'out') {
       this.cycleDefinition();
+      this.direction = 'in';
+      this.animation.name = 'fadeInLeft';
+      this.animation.easing = 'easeOutQuad';
+      if (this.paused) {
+        this.playing = false;
+        return;
+      }
+      this.playing = true;
     }
-    this.direction = this.direction === 'in' ? 'out' : 'in';
-    if (this.pause) return;
-    this.animation.play = true;
   };
 
   cycleDefinition() {

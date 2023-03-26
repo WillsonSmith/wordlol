@@ -46,7 +46,6 @@ export class NavLink extends LitElement {
       .nav-link--primary {
         font-size: var(--font-size-xxl);
         font-weight: var(--font-weight-light);
-        /* line-height: var(--line-height-sm); */
       }
 
       .nav-link:hover {
