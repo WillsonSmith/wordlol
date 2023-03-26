@@ -24,6 +24,7 @@ export class IndexRoute extends LitElement {
               maxlength="50"
               required
               aria-label="Invent a word (search)"
+              spellcheck="false"
             >
             </sl-input>
             <sl-button type="submit">Define</sl-button>
