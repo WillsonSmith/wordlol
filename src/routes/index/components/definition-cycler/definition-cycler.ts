@@ -12,52 +12,21 @@ import SlAnimation from '@shoelace-style/shoelace/dist/components/animation/anim
 
 @customElement('definition-cycler')
 export class DefinitionCycler extends LitElement {
-  @property({ type: Boolean }) transitioning = false;
-  @property({ type: Boolean }) paused = false;
-  @property({ type: Boolean }) out = false;
-  @property({ type: Boolean }) in = true;
+  @property({ type: Boolean }) playing = true;
 
   @property({ type: Object })
   definition: Definition = { word: '', definition: '' };
 
-  @property({ type: Array })
-  definitions: Definition[] = [];
-
-  @query('sl-animation')
-  animation!: SlAnimation;
-
+  private _definitions: Definition[] = [];
   firstUpdated() {
     import('./definitions').then(({ definitions }) => {
-      this.definitions = definitions;
+      this._definitions = definitions;
       this.cycleDefinition();
     });
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
-      this.paused = true;
-    }
-  }
-
-  updated(changed: Map<string, string>) {
-    if (changed.has('paused')) {
-      if (this.paused) {
-        if (!this.transitioning) {
-          this.animation.play = false;
-        }
-      }
-      if (!this.paused) {
-        if (!this.transitioning) {
-          this.animation.play = true;
-        }
-      }
-    }
-
-    if (changed.has('transitioning')) {
-      if (!this.transitioning) {
-        if (this.paused) {
-          this.animation.play = false;
-        }
-      }
+      this.playing = false;
     }
   }
 
@@ -68,67 +37,101 @@ export class DefinitionCycler extends LitElement {
         <sl-button
           class="definition-cycler__controls"
           variant="text"
-          @click=${this._handleControlClick}
+          @click=${this._handlePlaybackControls}
         >
-          <sl-icon slot="suffix" name=${this.paused ? 'play-circle' : 'pause-circle'}></sl-icon>
-          ${this.paused ? 'Resume' : 'Pause'}
+          <sl-icon slot="suffix" name=${this.playing ? 'pause-circle' : 'play-circle'}></sl-icon>
+          ${this.playing ? 'Pause' : 'Play'}
         </sl-button>
-        <sl-animation
-          play
-          iterations="1"
-          duration="1000"
-          fill="forwards"
-          name=${this.in ? 'fadeInLeft' : 'fadeOutRight'}
-          @sl-start=${this._animationStart}
-          @sl-finish=${this._animationEnd}
-        >
-          <definition-block word=${definition.word}>
-            <p>${definition.definition}</p>
-          </definition-block>
-        </sl-animation>
+        <definition-block word=${definition.word}>
+          <p>${definition.definition}</p>
+        </definition-block>
       </div>
     `;
   }
 
-  private _handleControlClick() {
-    this.paused = !this.paused;
-  }
-
-  private _animationStart() {
-    this.transitioning = true;
-  }
-
-  private _animationEnd() {
-    this.animation.play = false;
-
-    setTimeout(
-      () => {
-        this._registerNextCycle();
-      },
-      this.in ? 10000 : 150,
-    );
-  }
-
-  private _registerNextCycle() {
-    if (this.out) {
-      this.cycleDefinition();
-      this.in = true;
-      this.out = false;
-      this.animation.play = true;
-    } else {
-      if (this.in) {
-        this.out = true;
-        this.in = false;
+  updated(changed) {
+    if (changed.has('playing')) {
+      if (this._animation) return;
+      if (this.playing) {
+        this._animateOut();
       }
     }
-    if (!this.paused) {
-      this.animation.play = true;
+  }
+
+  private _handlePlaybackControls() {
+    this.playing = !this.playing;
+  }
+
+  @query('definition-block')
+  private _definitionBlock?: HTMLElement;
+
+  private _animation?: Animation;
+  private _animateIn() {
+    const animation = this._animation;
+    if (animation) {
+      animation.cancel();
+      this._animation = undefined;
     }
+
+    const definitionBlock = this._definitionBlock;
+    if (!definitionBlock) return;
+
+    const animationOptions: KeyframeAnimationOptions = {
+      duration: 500,
+      easing: 'ease-in-out',
+      fill: 'forwards',
+      iterations: 1,
+    };
+
+    const animationKeyframes: Keyframe[] = [
+      { opacity: 0, transform: 'translateY(10px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ];
+
+    this._animation = definitionBlock.animate(animationKeyframes, animationOptions);
+    this._animation.onfinish = () => {
+      this._animation = undefined;
+      setTimeout(() => {
+        if (this.playing) this._animateOut();
+      }, 8000);
+    };
+  }
+
+  private _animateOut() {
+    const animation = this._animation;
+    if (animation) {
+      animation.cancel();
+      this._animation = undefined;
+    }
+
+    const definitionBlock = this._definitionBlock;
+    if (!definitionBlock) return;
+
+    const animationOptions: KeyframeAnimationOptions = {
+      duration: 500,
+      easing: 'ease-in-out',
+      fill: 'forwards',
+      iterations: 1,
+    };
+
+    const animationKeyframes: Keyframe[] = [
+      { opacity: 1, transform: 'translateY(0)' },
+      { opacity: 0, transform: 'translateY(-10px)' },
+    ];
+
+    this._animation = definitionBlock.animate(animationKeyframes, animationOptions);
+    this._animation.onfinish = () => {
+      this._animation = undefined;
+      setTimeout(() => {
+        this.cycleDefinition();
+      }, 150);
+    };
   }
 
   cycleDefinition() {
-    const next = this.definitions.at(Math.floor(Math.random() * this.definitions.length));
+    const next = this._definitions.at(Math.floor(Math.random() * this._definitions.length));
     this.definition = next || this.definition;
+    this._animateIn();
   }
 
   static styles = [
