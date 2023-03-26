@@ -41,7 +41,7 @@ export class SiteNav extends LitElement {
   private get socialLinks() {
     return [
       {
-        href: 'https://github.com/willsonsmith',
+        href: 'https://github.com/willsonsmith/wordlol',
         label: 'GitHub',
         icon: 'github',
       },
