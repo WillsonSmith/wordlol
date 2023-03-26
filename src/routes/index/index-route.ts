@@ -50,6 +50,7 @@ export class IndexRoute extends LitElement {
         justify-content: center;
         font-size: var(--font-size-xxl);
         font-weight: var(--font-weight-medium);
+        transform: translateX(calc(var(--spacing) * -1));
       }
 
       .search-form {

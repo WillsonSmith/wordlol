@@ -7,7 +7,7 @@ export class DefinitionBlock extends LitElement {
     return html`
       <div class="definition-block__header">
         <h1 class="definition-block__word">${this._capitalize(this.word)}</h1>
-        <slot name="suffix"></slot>
+        <slot name="suffix" class="slot"></slot>
       </div>
       <div class="definition-block__definition">
         <slot></slot>
@@ -43,7 +43,7 @@ export class DefinitionBlock extends LitElement {
         margin: 0;
       }
 
-      .definition-block__definition::slotted(p) {
+      ::slotted(p) {
         margin-block: var(--spacing-xs);
       }
     `,
