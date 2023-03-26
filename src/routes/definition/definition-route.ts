@@ -5,6 +5,7 @@ import { when } from 'lit/directives/when.js';
 import '@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 import '@shoelace-style/shoelace/dist/components/skeleton/skeleton.js';
 import '../../components/definition-block/definition-block';
+import '../../components/skeleton-text-block/skeleton-text-block';
 
 import type { ServerlessAPIResponse } from '../../../functions/search.js';
 
@@ -29,10 +30,12 @@ export class DefinitionRoute extends LitElement {
   }
 
   private _renderSkeletonContent = () => {
-    return html`<div class="skeleton-container">
-      <sl-spinner class="skeleton-container__spinner" slot="suffix"></sl-spinner>
-      ${this._renderSkeletons()}
-    </div> `;
+    const numberOfSkeletons = Math.floor(Math.random() * 3) + 5;
+    return html`
+      <div class="definition-route__skeletons">
+        <skeleton-text-block lines=${numberOfSkeletons} effect="pulse"></skeleton-text-block>
+      </div>
+    `;
   };
 
   private _renderSkeletons() {
@@ -72,41 +75,8 @@ export class DefinitionRoute extends LitElement {
         align-items: center;
         gap: var(--spacing-xs);
       }
-      .skeleton-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-xxs);
-        margin-top: var(--spacing-xs);
-      }
-      .skeleton-container__spinner {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
-
-      sl-skeleton::part(base) {
-        align-items: center;
-      }
-      sl-skeleton::part(indicator) {
-        height: 10px;
-      }
-
-      .skeleton-with-spinner {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-xs);
-        width: 50%;
-      }
-
-      sl-skeleton:nth-last-child(3) {
-        width: 95%;
-      }
-      sl-skeleton:nth-last-child(2) {
-        width: 90%;
-      }
-      sl-skeleton:nth-last-child(1) {
-        width: 85%;
+      .definition-route__skeletons {
+        margin-top: var(--spacing-sm);
       }
     `,
   ];
