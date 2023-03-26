@@ -14,7 +14,6 @@
   "plugins": ["@typescript-eslint", "lit"],
   "rules": {
     "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
     "semi": ["error", "always"]
   },
   "ignorePatterns": ["*.config.ts", "**/*.spec.ts", "**/*.test.ts", "**/*.d.ts"]

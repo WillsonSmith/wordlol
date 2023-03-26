@@ -75,7 +75,7 @@ export class DefinitionCycler extends LitElement {
       return;
     }
     this.animation.play = false;
-    const timeoutDelay = this.direction === 'in' ? 3000 : 150;
+    const timeoutDelay = this.direction === 'in' ? 10000 : 150;
     setTimeout(this._animationTimeout, timeoutDelay);
   }
 
