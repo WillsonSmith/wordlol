@@ -16,7 +16,7 @@ To get started with wordlol follow these steps:
 
 - `git clone https://github.com/WillsonSmith/wordlol.git`
 - Add an `OPENAI_API_KEY` to your Environment variables (`.env` file).
-  - Get an API key by signing up for an OpenAI account at https://openai.com/.
+  - Sign up for on [OpenAI](https://openai.com/) to get an API key.
 - `npm install`
 - `npm start`
   - This requires Netlify for functions. You can replace the API or run `npm run dev` to run the application without functions.
@@ -26,8 +26,8 @@ To get started with wordlol follow these steps:
 
 ### Special thainks:
 
-- [Lit](https://lit.dev): Simple. Fast. Web Components.
-- [Vite](https://vitejs.dev): Next Generation Frontend Tooling
-- [Shoelace](https://shoelace.style): A forward-thinking library of web components
+- [Lit](https://lit.dev) Simple. Fast. Web Components.
+- [Vite](https://vitejs.dev) Next Generation Frontend Tooling
+- [Shoelace](https://shoelace.style) A forward-thinking library of web components
 - [OpenAI](https://platform.openai.com/docs/guides/chat) Chat completion API
-- [Netlify](https://netlify.com): The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and apps for the web.
+- [Netlify](https://netlify.com) The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and apps for the web.
