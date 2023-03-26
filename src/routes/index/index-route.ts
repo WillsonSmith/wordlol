@@ -26,7 +26,7 @@ export class IndexRoute extends LitElement {
               aria-label="Invent a word (search)"
             >
             </sl-input>
-            <sl-button type="submit">Generate</sl-button>
+            <sl-button type="submit">Define</sl-button>
           </form>
           <definition-cycler></definition-cycler>
         </div>
@@ -38,6 +38,7 @@ export class IndexRoute extends LitElement {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const query = new FormData(form).get('search');
+    if (!query) return;
     window.location.href = `/definition/${query}`;
   }
 
