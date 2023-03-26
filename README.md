@@ -1,7 +1,8 @@
 # Word
 [website](https://word.lol)
 
-<img width="1100" alt="image" src="https://user-images.githubusercontent.com/1087756/227752029-91df690b-f51c-47fb-9d75-a0b8fb88a8ea.png">
+<img width="1624" alt="Screenshot 2023-03-25 at 23 51 30" src="https://user-images.githubusercontent.com/1087756/227755141-18ae4648-5713-4bc3-bedc-360afcd5dc92.png">
+<img width="1624" alt="Screenshot 2023-03-25 at 23 51 26" src="https://user-images.githubusercontent.com/1087756/227755147-b505d5f8-6009-45a0-8b60-e57e67a010f2.png">
 
 Word is a web application built with the [Lit](http://lit.dev) web framework that allows users to search for a word or a phrase and generate a definition similar to Urban Dictionary. The application uses OpenAI's ChatGPT API to randomly generate definitions. It is built on top of [Vite](https://vitejs.dev), a fast build tool for modern web applications, and has a dependency on Netlify for functions.
 
