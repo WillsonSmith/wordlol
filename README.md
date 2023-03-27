@@ -1,4 +1,5 @@
-## wordlol
+## wordlol [![Netlify Status](https://api.netlify.com/api/v1/badges/595de7a6-688e-4ec7-af8a-f5e5714c367d/deploy-status)](https://app.netlify.com/sites/word-lol/deploys)
+
 [https://word.lol](https://word.lol)
 
 ### Invent words with wordlol
